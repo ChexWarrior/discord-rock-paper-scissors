@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\DTO\Command;
+use App\Service\CommandAPI;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,10 +16,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class CommandCRUDController extends AbstractController
 {
     #[Route('/commands/list', methods: ['GET'])]
-    public function list(): JsonResponse
+    public function list(CommandAPI $commandApi): JsonResponse
     {
-        return $this->json([
-            'message' => 'Allo govner!',
-        ]);
+        $commands = $commandApi->listCommands();
+        $commandJSON = '';
+        array_walk($commands, fn(Command $c) => $commandJSON .= $c->toJson());
+
+        return $this->json($commandJSON);
     }
 }
