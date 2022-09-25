@@ -22,3 +22,9 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    App\Service\CommandAPI:
+      arguments:
+        $botToken: '%env(resolve:BOT_TOKEN)%'
+        $applicatonId: '%env(resolve:APP_ID)%'
+        $guildId: '%env(resolve:GUILD_ID)%'
+
