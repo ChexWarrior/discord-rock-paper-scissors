@@ -38,7 +38,7 @@ class Command
         }
 
         if (!empty($this->choices)) {
-            $data['choices'] = json_encode($this->choices);
+            $data['choices'] = $this->choices;
         }
 
         $data['appId'] = $this->appId;
