@@ -4,10 +4,15 @@ namespace App\Service;
 
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-abstract class DiscordAPI
+class DiscordAPI
 {
     private const BASE_URL = 'https://discord.com/api/v10';
     private HttpClientInterface $client;
+
+    public function __construct(HttpClientInterface $client)
+    {
+        $this->client = $client;
+    }
 
     private function sendRequest(string $url, array $options = [], string $method = 'GET')
     {
