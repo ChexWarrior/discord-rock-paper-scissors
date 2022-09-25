@@ -24,4 +24,27 @@ class Command
         $this->description = $options['description'];
         $this->choices ??= $options['choices'];
     }
+
+    /**
+     * Returns this application command as JSON for use with Discord API
+     *
+     * @return string
+     */
+    public function toJson(): string
+    {
+        $data = [];
+        if (!empty($this->id)) {
+            $data['id'] = $this->id;
+        }
+
+        if (!empty($this->choices)) {
+            $data['choices'] = json_encode($this->choices);
+        }
+
+        $data['appId'] = $this->appId;
+        $data['name'] = $this->name;
+        $data['description'] = $this->description;
+
+        return json_encode($data);
+    }
 }
