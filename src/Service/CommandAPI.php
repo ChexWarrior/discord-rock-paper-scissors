@@ -18,7 +18,7 @@ class CommandAPI extends DiscordAPI
     public function __construct(string $botToken, string $applicatonId, string $guildId, HttpClientInterface $client)
     {
         parent::__construct($client);
-        $this->url = "applications/$applicationId/guilds/$guildId";
+        $this->url = "applications/$applicatonId/guilds/$guildId/commands";
         $this->defaultHeaders = [
             'Content-Type' => 'application/json',
             'Authorization' => "Bot $botToken"
@@ -28,14 +28,16 @@ class CommandAPI extends DiscordAPI
     /**
      * Lists application commands registered with guild and returns
      * array of command DTOs
-     *
-     * @return string
      */
     public function listCommands(): array
     {
         $commands = [];
         // TODO: Handle potential exceptions
-        $response = $this->sendRequest(url: $this->url, options: $this->defaultHeaders);
+        $response = $this->sendRequest(
+            url: $this->url,
+            options: [
+                'headers' => $this->defaultHeaders
+            ]);
         $commandData = json_decode(json: $response->getContent(), associative: true);
 
         foreach ($commandData as $data) {
