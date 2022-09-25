@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class DiscordAPI
 {
@@ -14,9 +15,10 @@ class DiscordAPI
         $this->client = $client;
     }
 
-    private function sendRequest(string $url, array $options = [], string $method = 'GET')
+    protected function sendRequest(string $url, array $options = [], string $method = 'GET'): ResponseInterface
     {
         $fullUrl = self::BASE_URL . "/$url";
-        $this->client->request($method, $fullUrl, $options);
+
+        return $this->client->request($method, $fullUrl, $options);
     }
 }
