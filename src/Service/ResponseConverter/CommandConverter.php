@@ -3,6 +3,7 @@
 namespace App\Service\ResponseConverter;
 
 use App\DTO\Command;
+use App\DTO\CommandOption;
 
 /**
  * Converts raw API response from Discord API into Command DTO objects
@@ -19,22 +20,26 @@ class CommandConverter
      */
     public static function convertResponse(array $data): Command
     {
-        $options = [
+        $commandInfo = [
             'id' => $data['id'],
             'appId' => $data['application_id'],
             'name' => $data['name'],
             'description' => $data['description'],
+            'options' => [],
         ];
 
-        if (array_key_exists('choices', $data)) {
-            foreach ($data['choices'] as $choice) {
-                $options['data'][] = [
-                    'name' => $choice['name'],
-                    'value' => $choice['value'],
-                ];
+        if (array_key_exists('options', $data)) {
+            foreach ($data['options'] as $option) {
+                $commandInfo['options'][] = new CommandOption([
+                    'name' => $option['name'],
+                    'type' => $option['type'],
+                    'description' => $option['description'],
+                    'required' => $option['required'],
+                    'choices' => $option['choices'],
+                ]);
             }
         }
 
-        return new Command($options);
+        return new Command($commandInfo);
     }
 }

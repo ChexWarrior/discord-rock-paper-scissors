@@ -14,7 +14,8 @@ class Command
     public readonly string $appId;
     public readonly string $name;
     public readonly string $description;
-    public readonly ?array $choices;
+    /** @var ?CommandOption[] */
+    public readonly ?array $options;
 
     public function __construct(array $options)
     {
@@ -22,7 +23,7 @@ class Command
         $this->appId = $options['appId'];
         $this->name = $options['name'];
         $this->description = $options['description'];
-        $this->choices ??= $options['choices'];
+        $this->options ??= $options['options'];
     }
 
     /**
@@ -37,13 +38,21 @@ class Command
             $data['id'] = $this->id;
         }
 
-        if (!empty($this->choices)) {
-            $data['choices'] = $this->choices;
-        }
-
         $data['appId'] = $this->appId;
         $data['name'] = $this->name;
         $data['description'] = $this->description;
+
+        if (!empty($this->options)) {
+            $data['options'] = array_map(function(CommandOption $c) {
+                return [
+                    'name' =>  $c->name,
+                    'type' => $c->type->value,
+                    'description' => $c->description,
+                    'required' => $c->required,
+                    'choices' => $c->choices,
+                ];
+            }, $this->options);
+        }
 
         return json_encode($data);
     }

@@ -20,7 +20,9 @@ class CommandCRUDController extends AbstractController
     {
         $commands = $commandApi->listCommands();
         $commandJSON = '';
-        array_walk($commands, fn(Command $c) => $commandJSON .= $c->toJson());
+        array_walk($commands, function (Command $c) use (&$commandJSON) {
+            $commandJSON .= $c->toJson();
+        });
 
         return $this->json($commandJSON);
     }
