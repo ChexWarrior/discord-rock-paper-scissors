@@ -8,13 +8,13 @@ namespace App\DTO;
  *
  * @package App\DTO
  */
-class Command
+class AppCommand
 {
     public readonly ?string $id;
     public readonly string $appId;
     public readonly string $name;
     public readonly string $description;
-    /** @var ?CommandOption[] */
+    /** @var ?AppCommandOption[] */
     public readonly ?array $options;
 
     public function __construct(array $options)
@@ -43,7 +43,7 @@ class Command
         $data['description'] = $this->description;
 
         if (!empty($this->options)) {
-            $data['options'] = array_map(function(CommandOption $c) {
+            $data['options'] = array_map(function(AppCommandOption $c) {
                 return [
                     'name' =>  $c->name,
                     'type' => $c->type->value,

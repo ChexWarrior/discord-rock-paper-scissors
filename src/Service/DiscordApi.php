@@ -5,7 +5,7 @@ namespace App\Service;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
-class DiscordAPI
+class DiscordApi
 {
     private const BASE_URL = 'https://discord.com/api/v10';
     private HttpClientInterface $client;

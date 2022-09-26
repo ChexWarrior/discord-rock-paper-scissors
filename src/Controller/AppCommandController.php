@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\DTO\Command;
-use App\Service\CommandAPI;
+use App\DTO\AppCommand;
+use App\Service\AppCommandApi;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,11 +16,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class AppCommandController extends AbstractController
 {
     #[Route('/commands/list', methods: ['GET'])]
-    public function list(CommandAPI $commandApi): JsonResponse
+    public function list(AppCommandApi $commandApi): JsonResponse
     {
         $commands = $commandApi->listCommands();
         $commandJSON = '';
-        array_walk($commands, function (Command $c) use (&$commandJSON) {
+        array_walk($commands, function (AppCommand $c) use (&$commandJSON) {
             $commandJSON .= $c->toJson();
         });
 

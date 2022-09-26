@@ -6,7 +6,7 @@ namespace App\Enum;
  * Represent an Application Command Option Type
  * https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-type
  */
-enum CommandOptionType: int
+enum AppCommandOptionType: int
 {
     case SUB_COMMAND = 1;
     case SUB_COMMAND_GROUP = 2;

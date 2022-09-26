@@ -2,16 +2,16 @@
 
 namespace App\DTO;
 
-use App\Enum\CommandOptionType;
+use App\Enum\AppCommandOptionType;
 
 /**
  * Represents an Applicaton Command Option in Discord API
  * See: https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
  * @package App\DTO
  */
-class CommandOption
+class AppCommandOption
 {
-    public readonly CommandOptionType $type;
+    public readonly AppCommandOptionType $type;
     public readonly string $name;
     public readonly string $description;
     public readonly bool $required;
@@ -19,7 +19,7 @@ class CommandOption
 
     public function __construct(array $options)
     {
-        $this->type = CommandOptionType::from($options['type']);
+        $this->type = AppCommandOptionType::from($options['type']);
         $this->name = $options['name'];
         $this->description = $options['description'];
         $this->required = $options['required'] ?? false;

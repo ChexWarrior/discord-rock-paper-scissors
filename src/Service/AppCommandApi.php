@@ -2,7 +2,7 @@
 
 namespace App\Service;
 
-use App\Service\ResponseConverter\CommandConverter;
+use App\Service\ResponseConverter\AppCommandConverter;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 /**
@@ -10,7 +10,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
  *
  * @package App\Service
  */
-class CommandAPI extends DiscordAPI
+class AppCommandApi extends DiscordApi
 {
     private readonly array $defaultHeaders;
     private readonly string $url;
@@ -41,7 +41,7 @@ class CommandAPI extends DiscordAPI
         $commandData = json_decode(json: $response->getContent(), associative: true);
 
         foreach ($commandData as $data) {
-            $commands[] = CommandConverter::convertResponse($data);
+            $commands[] = AppCommandConverter::convertResponse($data);
         }
 
         return $commands;
