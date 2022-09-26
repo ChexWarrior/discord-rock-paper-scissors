@@ -27,11 +27,9 @@ class AppCommand
     }
 
     /**
-     * Returns this application command as JSON for use with Discord API
-     *
-     * @return string
+     * Returns this application command as an array 
      */
-    public function toJson(): string
+    public function toArray(): array
     {
         $data = [];
         if (!empty($this->id)) {
@@ -43,17 +41,9 @@ class AppCommand
         $data['description'] = $this->description;
 
         if (!empty($this->options)) {
-            $data['options'] = array_map(function(AppCommandOption $c) {
-                return [
-                    'name' =>  $c->name,
-                    'type' => $c->type->value,
-                    'description' => $c->description,
-                    'required' => $c->required,
-                    'choices' => $c->choices,
-                ];
-            }, $this->options);
+            $data['options'] = array_map(fn (AppCommandOption $c) => $c->toArray(), $this->options);
         }
 
-        return json_encode($data);
+        return $data;
     }
 }

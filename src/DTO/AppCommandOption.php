@@ -26,7 +26,7 @@ class AppCommandOption
         $this->choices ??= $options['choices'];
     }
 
-    public function toJson(): string
+    public function toArray(): array
     {
         $data = [
             'type' => $this->type,
@@ -39,6 +39,6 @@ class AppCommandOption
             $data['choices'] = $this->choices;
         }
 
-        return json_encode($data);
+        return $data;
     }
 }
