@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @package App\Controller
  */
-class CommandCRUDController extends AbstractController
+class AppCommandController extends AbstractController
 {
     #[Route('/commands/list', methods: ['GET'])]
     public function list(CommandAPI $commandApi): JsonResponse
