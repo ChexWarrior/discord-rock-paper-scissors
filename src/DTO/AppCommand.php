@@ -6,6 +6,8 @@ namespace App\DTO;
  * Represents information about a command returned from Discord Application
  * Command api endpoint
  *
+ * See: https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-naming
+ *
  * @package App\DTO
  */
 class AppCommand
@@ -27,7 +29,7 @@ class AppCommand
     }
 
     /**
-     * Returns this application command as an array 
+     * Returns this application command as an array
      */
     public function toArray(): array
     {
