@@ -17,13 +17,13 @@ class AppCommandOption
     public readonly bool $required;
     public readonly ?array $choices;
 
-    public function __construct(array $options)
+    public function __construct(AppCommandOptionType $type, string $name, string $description, bool $required, array $choices)
     {
-        $this->type = AppCommandOptionType::from($options['type']);
-        $this->name = $options['name'];
-        $this->description = $options['description'];
-        $this->required = $options['required'] ?? false;
-        $this->choices ??= $options['choices'];
+        $this->type = $type;
+        $this->name = $name;
+        $this->description = $description;
+        $this->required = $required;
+        $this->choices = $choices;
     }
 
     public function toArray(): array
@@ -35,9 +35,7 @@ class AppCommandOption
             'required' => $this->required,
         ];
 
-        if (!empty($this->choices)) {
-            $data['choices'] = $this->choices;
-        }
+        $data['choices'] = array_map(fn (AppCommandOptionChoice $c) => $c->toArray(), $this->options);
 
         return $data;
     }
