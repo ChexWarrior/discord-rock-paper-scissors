@@ -23,6 +23,7 @@ class AppCommandOption
         $this->name = $name;
         $this->description = $description;
         $this->required = $required;
+        /** @var AppCommandOptionChoice[] */
         $this->choices = $choices;
     }
 
