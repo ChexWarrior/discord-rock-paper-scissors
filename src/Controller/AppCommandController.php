@@ -25,4 +25,12 @@ class AppCommandController extends AbstractController
 
         return $this->json($commandJSON);
     }
+
+    #[Route('/commands/delete/{id}', methods: ['DELETE'])]
+    public function delete(AppCommandApi $commandApi, string $id): JsonResponse
+    {
+        $success = $commandApi->deleteCommand($id);
+
+        return $this->json($success);
+    }
 }

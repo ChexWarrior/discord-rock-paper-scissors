@@ -48,4 +48,17 @@ class AppCommandApi extends DiscordApi
 
         return $commands;
     }
+
+    public function deleteCommand(string $id): bool
+    {
+        $response = $this->sendRequest(
+            url: "$this->url/$id",
+            options: ['headers' => $this->defaultHeaders],
+            method: 'DELETE'
+        );
+
+        if ($response->getStatusCode() === 204) return true;
+
+        return false;
+    }
 }
