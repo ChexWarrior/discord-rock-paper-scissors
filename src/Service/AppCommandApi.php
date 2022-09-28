@@ -35,10 +35,12 @@ class AppCommandApi extends DiscordApi
         // TODO: Handle potential exceptions
         $response = $this->sendRequest(
             url: $this->url,
-            options: [
-                'headers' => $this->defaultHeaders
-            ]);
-        $commandData = json_decode(json: $response->getContent(), associative: true);
+            options: ['headers' => $this->defaultHeaders]
+        );
+        $commandData = json_decode(
+            json: $response->getContent(),
+            associative: true
+        );
 
         foreach ($commandData as $data) {
             $commands[] = AppCommandConverter::convertResponse($data);

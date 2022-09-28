@@ -18,7 +18,10 @@ class AppCommandController extends AbstractController
     #[Route('/commands/list', methods: ['GET'])]
     public function list(AppCommandApi $commandApi): JsonResponse
     {
-        $commandJSON = array_map(fn(AppCommand $c) => $c->toArray(), $commandApi->listCommands());
+        $commandJSON = array_map(
+            fn(AppCommand $c) => $c->toArray(),
+            $commandApi->listCommands()
+        );
 
         return $this->json($commandJSON);
     }

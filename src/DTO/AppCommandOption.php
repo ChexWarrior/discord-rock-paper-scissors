@@ -36,7 +36,7 @@ class AppCommandOption
             'required' => $this->required,
         ];
 
-        $data['choices'] = array_map(fn (AppCommandOptionChoice $c) => $c->toArray(), $this->options);
+        $data['choices'] = array_map(fn (AppCommandOptionChoice $c) => $c->toArray(), $this->choices);
 
         return $data;
     }
