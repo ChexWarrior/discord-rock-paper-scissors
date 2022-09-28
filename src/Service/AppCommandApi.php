@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\DTO\AppCommand;
 use App\Service\ResponseConverter\AppCommandConverter;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -60,5 +61,29 @@ class AppCommandApi extends DiscordApi
         if ($response->getStatusCode() === 204) return true;
 
         return false;
+    }
+
+    /**
+     * Creates RPS command
+     * @return void
+     */
+    public function createCommand(AppCommand $command): ?AppCommand {
+        $response = $this->sendRequest(
+            url: $this->url,
+            options: [
+                'headers' => $this->defaultHeaders,
+                'json' => $command->toArray(),
+            ],
+            method: 'POST'
+        );
+
+        if ($response->getStatusCode() === 201) {
+            $jsonData = json_decode(json: $response->getContent(), associative: true);
+            $newCommand = AppCommandConverter::convertResponse($jsonData);
+
+            return $newCommand;
+        }
+
+        return null;
     }
 }
