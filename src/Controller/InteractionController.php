@@ -3,8 +3,8 @@
 namespace App\Controller;
 
 use App\Service\InteractionAuthorizer;
+use App\Service\PingPong;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,16 +12,30 @@ use Symfony\Component\Routing\Annotation\Route;
 class InteractionController extends AbstractController
 {
     #[Route('/interactions', methods: ['POST'])]
-    public function interactionHandler(InteractionAuthorizer $interactionAuthorizer, Request $request): JsonResponse
+    public function interactionHandler(InteractionAuthorizer $interactionAuthorizer, PingPong $pingPong,Request $request): Response
     {
-        $signature = $request->headers->get('');
-        $timestamp = $request->headers->get('');
-        $body = $request->getContent();
+        $signature = $request->headers->get('X-Signature-Ed25519');
+        $timestamp = $request->headers->get('X-Signature-Timestamp');
+        $rawBody = $request->getContent();
 
-        if (!$interactionAuthorizer->verify($signature, $timestamp, $body)) {
+        if (!$interactionAuthorizer->verify($signature, $timestamp, $rawBody)) {
             return new Response(status: 401);
         }
 
-        
+        // TODO: Create service for parsing interaction data
+        $body = json_decode($rawBody, true);
+        $interactionType = $body['type'];
+
+        // TODO: Create enum for interaction callback type
+        if ($interactionType === 1) {
+            return $pingPong->pong();
+        }
+
+        // Actual interaction request
+        return new Response(
+            json_encode(['type' => 4, 'data' => ['content' => 'Hello World!']]),
+            200,
+            ['Content-Type' => 'application/json']
+        );
     }
 }
