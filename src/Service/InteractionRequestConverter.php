@@ -13,17 +13,17 @@ class InteractionRequestConverter
 {
     public static function convert(array $interactionData): InteractionRequest
     {
-        $id ??= $interactionData['id'];
-        $applicationId ??= $interactionData['application_id'];
-        $type = $interactionData['type'] ?? InteractionType::tryFrom($interactionData['type']);
-        $data ??= $interactionData['data'];
-        $guildId ??= $interactionData['guild_id'];
-        $channelId ??= $interactionData['channel_id'];
-        $guildMember ??= $interactionData['guild_member'];
-        $user ??= $interactionData['user'];
-        $token ??= $interactionData['token'];
-        $message ??= $interactionData['message'];
-        $appPermissions ??= $interactionData['app_permissions'];
+        $id = $interactionData['id'] ?? null;
+        $applicationId = $interactionData['application_id'] ?? null;
+        $type = isset($interactionData['type']) ? InteractionType::tryFrom($interactionData['type']) : null;
+        $data = $interactionData['data'] ?? null;
+        $guildId = $interactionData['guild_id'] ?? null;
+        $channelId = $interactionData['channel_id'] ?? null;
+        $guildMember = $interactionData['guild_member'] ?? null;
+        $user = $interactionData['user'] ?? null;
+        $token = $interactionData['token'] ?? null;
+        $message = $interactionData['message'] ?? null;
+        $appPermissions = $interactionData['app_permissions'] ?? null;
 
         if (empty($id) || empty($applicationId) || empty($type) || empty($token)) {
             throw new \UnexpectedValueException('Interaction is missing a required value!');
