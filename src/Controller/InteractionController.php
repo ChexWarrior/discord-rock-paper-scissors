@@ -25,9 +25,8 @@ class InteractionController extends AbstractController
 
         // TODO: Create service for parsing interaction data
         $body = json_decode($rawBody, true);
-        $interactionType = $body['type'];
-
-        if ($interactionType === InteractionCallbackType::PONG->value) {
+        $interactionType = InteractionCallbackType::from($body['type']);
+        if ($interactionType === InteractionCallbackType::PONG) {
             return $pingPong->pong();
         }
 
