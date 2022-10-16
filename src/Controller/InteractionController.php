@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\DTO\InteractionRequest;
 use App\Enum\InteractionType;
 use App\Service\InteractionAuthorizer;
 use App\Service\InteractionRequestConverter;
