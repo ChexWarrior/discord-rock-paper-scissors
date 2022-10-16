@@ -3,6 +3,8 @@
 namespace App\Enum;
 
 /**
+ * The type of the incoming interaction
+ * 
  * https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-type
  */
 enum InteractionType: int

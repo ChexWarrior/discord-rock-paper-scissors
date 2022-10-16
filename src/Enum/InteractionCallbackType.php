@@ -3,6 +3,9 @@
 namespace App\Enum;
 
 /**
+ * An interaction callback type specifies the type of response to an
+ * interaction you are specifying
+ *
  * See https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-interaction-callback-type
  */
 enum InteractionCallbackType: int
