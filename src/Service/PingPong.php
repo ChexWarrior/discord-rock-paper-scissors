@@ -2,7 +2,8 @@
 
 namespace App\Service;
 
-use Symfony\Component\HttpFoundation\Response;
+use App\Enum\InteractionCallbackType;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * This service handles the ping request that occasionally comes from Discord
@@ -10,9 +11,12 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class PingPong
 {
-    public function pong(): Response
+    public function pong(): JsonResponse
     {
         // TODO: Create enum for interaction callback type
-        return new Response(json_encode(['type' => 1]), 200, ['Content-Type' => 'application/json']);
+        return new JsonResponse(
+            ['type' => InteractionCallbackType::PONG->value],
+            200
+        );
     }
 }
