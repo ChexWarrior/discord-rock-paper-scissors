@@ -14,7 +14,7 @@ class InteractionRequest
     public function __construct(
         public readonly string $id,
         public readonly string $applicationId,
-        public readonly InteractionType $interactionType,
+        public readonly InteractionType $type,
         public readonly array $data,
         public readonly ?string $guildId,
         public readonly ?string $channelId,
