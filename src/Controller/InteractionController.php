@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Enum\InteractionCallbackType;
 use App\Service\InteractionAuthorizer;
 use App\Service\PingPong;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,8 +27,7 @@ class InteractionController extends AbstractController
         $body = json_decode($rawBody, true);
         $interactionType = $body['type'];
 
-        // TODO: Create enum for interaction callback type
-        if ($interactionType === 1) {
+        if ($interactionType === InteractionCallbackType::PONG->value) {
             return $pingPong->pong();
         }
 
