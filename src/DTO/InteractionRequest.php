@@ -15,7 +15,7 @@ class InteractionRequest
         public readonly string $id,
         public readonly string $applicationId,
         public readonly InteractionType $type,
-        public readonly array $data,
+        public readonly ?array $data,
         public readonly ?string $guildId,
         public readonly ?string $channelId,
         public readonly ?array $guildMember,
