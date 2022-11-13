@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Enum\InteractionCallbackType;
 use App\Enum\InteractionType;
 use App\Service\InteractionAuthorizer;
 use App\Service\InteractionRequestConverter;
+use App\Service\InteractionResponseGenerator;
 use App\Service\PingPong;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,11 +32,9 @@ class InteractionController extends AbstractController
             return $pingPong->pong();
         }
 
-        // TODO: Create service for generating interaction response
-        return new Response(
-            json_encode(['type' => 4, 'data' => ['content' => 'Hello World!']]),
-            200,
-            ['Content-Type' => 'application/json']
+        return InteractionResponseGenerator::generate(
+            InteractionCallbackType::CHANNEL_MESSAGE_WITH_SOURCE,
+            ['content' => 'Hello World'],
         );
     }
 }
