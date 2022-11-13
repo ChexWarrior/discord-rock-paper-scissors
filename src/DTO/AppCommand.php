@@ -17,9 +17,9 @@ class AppCommand
     public readonly string $name;
     public readonly string $description;
     /** @var ?AppCommandOption[] */
-    public readonly array $options;
+    public readonly ?array $options;
 
-    public function __construct(?string $id, string $appId, string $name, string $description, array $options)
+    public function __construct(?string $id, string $appId, string $name, string $description, ?array $options)
     {
         $this->id ??=  $id;
         $this->appId = $appId;
