@@ -30,7 +30,7 @@ class InteractionController extends AbstractController
             return $pingPong->pong();
         }
 
-        // Actual interaction response
+        // TODO: Create service for generating interaction response
         return new Response(
             json_encode(['type' => 4, 'data' => ['content' => 'Hello World!']]),
             200,
