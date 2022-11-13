@@ -38,9 +38,21 @@ class InteractionController extends AbstractController
                 'components' => [
                     [
                         'type' => 2,
-                        'label' => 'Click Me!',
+                        'label' => '🪨',
                         'style' => 1,
-                        'custom_id' => 'click_one',
+                        'custom_id' => 'rock_choice',
+                    ],
+                    [
+                        'type' => 2,
+                        'label' => '✂️',
+                        'style' => 1,
+                        'custom_id' => 'scissors_choice',
+                    ],
+                    [
+                        'type' => 2,
+                        'label' => '🗞️',
+                        'style' => 1,
+                        'custom_id' => 'paper_choice',
                     ]
                 ]
             ]
@@ -48,7 +60,7 @@ class InteractionController extends AbstractController
 
         return InteractionResponseGenerator::generate(
             InteractionCallbackType::CHANNEL_MESSAGE_WITH_SOURCE,
-            ['components' => $componentData],
+            ['components' => $componentData, 'content' => 'Make your choice...'],
         );
     }
 }
