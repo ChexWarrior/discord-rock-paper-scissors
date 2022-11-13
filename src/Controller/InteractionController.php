@@ -32,6 +32,7 @@ class InteractionController extends AbstractController
             return $pingPong->pong();
         }
 
+        // TODO: Create classes and structures for Component Messages
         $componentData = [
             [
                 'type' => 1,
@@ -57,6 +58,8 @@ class InteractionController extends AbstractController
                 ]
             ]
         ];
+
+        // TODO: Create service to handle the different interactions from game
 
         return InteractionResponseGenerator::generate(
             InteractionCallbackType::CHANNEL_MESSAGE_WITH_SOURCE,
