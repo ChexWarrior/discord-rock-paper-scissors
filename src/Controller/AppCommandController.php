@@ -39,14 +39,7 @@ class AppCommandController extends AbstractController
 
     #[Route('/commands/create/{appId}', methods: ['POST'])]
     public function create(AppCommandApi $commandApi, string $appId): JsonResponse {
-        // Statically create RPS command
-        $choices = [
-            new AppCommandOptionChoice('Rock', 'rock'),
-            new AppCommandOptionChoice('Paper', 'paper'),
-            new AppCommandOptionChoice('Scissors', 'scissors'),
-        ];
-        $commandOption = new AppCommandOption(AppCommandOptionType::STRING, 'choice', 'The RPS choice made by player', true, $choices);
-        $rpsCommand = new AppCommand(null, $appId, 'rps', 'Rock Paper Scissors!', [$commandOption]);
+        $rpsCommand = new AppCommand(null, $appId, 'rps', 'Rock Paper Scissors!', null);
         $success = $commandApi->createCommand($rpsCommand);
 
         return $this->json($success);
