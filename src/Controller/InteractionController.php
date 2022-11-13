@@ -32,9 +32,23 @@ class InteractionController extends AbstractController
             return $pingPong->pong();
         }
 
+        $componentData = [
+            [
+                'type' => 1,
+                'components' => [
+                    [
+                        'type' => 2,
+                        'label' => 'Click Me!',
+                        'style' => 1,
+                        'custom_id' => 'click_one',
+                    ]
+                ]
+            ]
+        ];
+
         return InteractionResponseGenerator::generate(
             InteractionCallbackType::CHANNEL_MESSAGE_WITH_SOURCE,
-            ['content' => 'Hello World'],
+            ['components' => $componentData],
         );
     }
 }
